@@ -1,0 +1,5 @@
+// PLEASE:
+// Do not CREATE/UPDATE/DELETE operations (many thanks)
+// This database uses also: https://github.com/totaljs/demo
+
+database                       :  mongodb://samd90:1234@ds043190.mongolab.com:43190/totaldemo
