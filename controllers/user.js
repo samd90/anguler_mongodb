@@ -64,15 +64,48 @@ function json_user_save(id) {
 	console.log('save ->', id);
 
 	// What is it? https://github.com/totaljs/examples/tree/master/changes
-	self.change('user: save, id: ' + id);
+	//self.change('user: save, id: ' + id);
 
-	User.findById(id, function(err, doc) {
+
+    var model = self.body;
+    var user = new User({ alias: model.alias, created: new Date() }).save(function(err) {
+
+        if (err)
+            self.throw500(err);
+
+        // Read all users
+        User.find(self.callback());
+    });
+
+	/*User.findById(id, function(err, doc) {
 		// Please do not save a document (THANKS :-))
+
+		doc.alias = self.body.alias;
 		doc.save();
+
 		self.json({ r: true });
-	});
+	});*/
 
 }
+/*
+var person_data = {
+    first_name: req.params.first
+    , last_name: req.params.last
+    , username: req.params.username
+};
+
+var person = new Person(person_data);
+
+person.save( function(error, data){
+    if(error){
+        res.json(error);
+    }
+    else{
+        res.json(data);
+    }
+});*/
+
+
 
 /*
 	Description: Delete user
@@ -94,7 +127,7 @@ function json_user_delete(id) {
 
 	User.findById(id, function(err, doc) {
 		// Please do not remove a document (THANKS :-))
-		 doc.remove();
+		doc.remove();
 		self.json({ r: true });
 	});
 
